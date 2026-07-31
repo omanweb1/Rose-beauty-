@@ -40,7 +40,7 @@
         .hero-header {
             background-color: var(--baby-pink);
             color: var(--white);
-            padding: 15px 5%;
+            padding: 20px 5%;
             box-shadow: 0 4px 15px rgba(244, 114, 182, 0.2);
             width: 100%;
         }
@@ -52,14 +52,15 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
-        /* أنيميشن نزول الهيدر الشعار والاسم */
+        /* المقطع الأيمن: اللوجو المستطيل وتحته الاسم والسلوجن */
         .brand-section {
             display: flex;
-            align-items: center;
-            gap: 15px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
             animation: slideDown 0.8s ease-out;
         }
 
@@ -68,54 +69,58 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* صورة اللوجو */
+        /* صورة اللوجو المستطيلة والكبيرة */
         .brand-logo-img {
-            width: 55px;
-            height: 55px;
-            object-fit: contain;
-            border-radius: 50%;
+            width: 180px;         /* عرض مستطيل مناسب */
+            height: 70px;         /* ارتفاع مستطيل واضح */
+            object-fit: contain;  /* للحفاظ على أبعاد اللوجو الأصلي */
             background-color: var(--white);
-            padding: 3px;
+            padding: 5px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .brand-titles {
             display: flex;
             flex-direction: column;
+            margin-top: 4px;
         }
 
         .brand-titles h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--white);
-            line-height: 1.1;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
         }
 
         .slogan {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: var(--white);
             opacity: 0.95;
-            margin-top: 3px;
+            margin-top: 2px;
         }
 
+        /* المقطع الأيسر: زري السلة وتغيير اللغة */
         .nav-controls {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .btn-header {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.25);
             border: 1.5px solid var(--white);
             color: var(--white);
-            padding: 8px 14px;
+            padding: 10px 18px;
             border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             transition: var(--transition);
         }
 
@@ -536,27 +541,28 @@
 </head>
 <body>
 
-    <!-- الهيدر الوردي الثابت لجميع الصفحات -->
+    <!-- الهيدر الوردي العلوي بأبعاد جديدة ومميزة -->
     <header class="hero-header">
         <div class="header-container">
+            <!-- الجهة اليمنى: صورة اللوجو الكبيرة المستطيلة وتحتها الاسم والسلوجن -->
             <div class="brand-section">
-                <!-- تم تغيير اسم الصورة إلى pink.jpeg -->
-                <img src="pink.jpeg" alt="Rose Beauty Logo" class="brand-logo-img" onerror="this.style.display='none'">
+                <img src="pink.jpeg" alt="Rose Beauty Logo" class="brand-logo-img">
                 <div class="brand-titles">
                     <h1 id="logo-text">Rose Beauty</h1>
                     <div class="slogan" id="slogan-text">Natural Bright | إشراقة طبيعية</div>
                 </div>
             </div>
             
+            <!-- الجهة اليسرى: السلة وتغيير اللغة بنفس التصميم المنسق -->
             <div class="nav-controls">
-                <button class="btn-header" onclick="toggleLanguage()">
-                    <i class="fa-solid fa-globe"></i>
-                    <span id="lang-btn-text">English</span>
-                </button>
                 <button class="btn-header" onclick="toggleCart()">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span id="cart-btn-text">السلة</span>
                     <span class="cart-badge" id="cart-count">0</span>
+                </button>
+                <button class="btn-header" onclick="toggleLanguage()">
+                    <i class="fa-solid fa-globe"></i>
+                    <span id="lang-btn-text">English</span>
                 </button>
             </div>
         </div>
@@ -653,8 +659,8 @@
                 subAr: "غسول بخلاصة ماء الأرز وماء الورد",
                 subEn: "Cleanser with Rice & Rose Water extract",
                 descAr: "غسول كريمي لطيف جداً على البشرة، مخصص للبشرة المختلطة والدهنية. يحتوي على نسبة عالية من الـ Hyaluronic Acid لتنظيف مسام البشرة بعمق وتوفير ترطيب مريح ومتوازن.",
-                descEn: "A gentle creamy facial cleanser designed specifically for combination and oily skin. Rich in Hyaluronic Acid for deep pore cleansing & balanced moisture."
-                benefitsAr: "ماء الأرز:  مضاد قوي للأكسدة، يساعد على محاربة الشيخوخة ويعزز نضارة وإشراقة البشرة الطبيعية.\nماء الورد: مرطب قوي، منعم وملطف ممتاز للبشرة والجلد ينشط الحيوية.",
+                descEn: "A gentle creamy facial cleanser designed specifically for combination and oily skin. Rich in Hyaluronic Acid for deep pore cleansing & balanced moisture.",
+                benefitsAr: "ماء الأرز: مضاد قوي للأكسدة، يساعد على محاربة الشيخوخة ويعزز نضارة وإشراقة البشرة الطبيعية.\nماء الورد: مرطب قوي، منعم وملطف ممتاز للبشرة والجلد ينشط الحيوية.",
                 benefitsEn: "Rice Water: Powerful antioxidant helping fight anti-aging and promoting natural radiance.\nRose Water: Deeply hydrating, softening, and soothing natural skin tonic.",
                 price: 2.500, 
                 image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600"
@@ -668,7 +674,7 @@
                 descAr: "كريم بشرة مرطب ومغذٍ ولطيف للغاية، مخصص للبشرة المختلطة والدهنية. غني بنسبة عالية من الـ Hyaluronic Acid ليمنح البشرة حماية وترطيباً يدوم طوال اليوم.",
                 descEn: "A hydrating, gentle skin cream specially formulated for combination and oily skin. Enriched with Hyaluronic Acid to nourish skin & lock in hydration.",
                 benefitsAr: "ماء الأرز: مضاد قوي للأكسدة، يساعد على محاربة الشيخوخة وتجديد خلايا البشرة.\nماء الورد: مرطب قوي، منعم وملطف طبيعي للبشرة يعيد إليها نعومتها الفائقة.",
-                benefitsEn: "Rice Water: Strong antioxidant aiding in anti-aging and skin renewal.\ Rose Water: Intense moisturizer, softening & soothing skin texture.",
+                benefitsEn: "Rice Water: Strong antioxidant aiding in anti-aging and skin renewal.\nRose Water: Intense moisturizer, softening & soothing skin texture.",
                 price: 3.600, 
                 image: "https://images.unsplash.com/photo-1608248597379-8ac80261136b?w=600"
             }
@@ -714,7 +720,7 @@
         let currentActiveProductId = null;
         const whatsappNumber = "96879277221"; 
 
-        /* عرض المنتجات في الصفحة الرئيسية بسلاسة */
+        /* عرض المنتجات في الصفحة الرئيسية */
         function renderMenu() {
             const grid = document.getElementById("products-grid");
             grid.innerHTML = "";
@@ -746,7 +752,7 @@
             });
         }
 
-        /* فتح صفحة المنتج الخاصة التفصيلية */
+        /* فتح صفحة المنتج التفصيلية */
         function openProductDetails(productId) {
             currentActiveProductId = productId;
             const product = products.find(p => p.id === productId);
@@ -845,7 +851,7 @@
             document.getElementById("cart-total-value").innerText = `${totalPrice.toFixed(3)} ${currency}`;
         }
 
-        /* الفاتورة المبسطة للواتساب */
+        /* إرسال الطلب عبر الواتساب */
         function sendToWhatsApp() {
             if (cart.length === 0) {
                 alert(currentLang === "ar" ? "سلة المشتريات فارغة!" : "Cart is empty!");
@@ -870,7 +876,7 @@
             window.open(whatsappUrl, '_blank');
         }
 
-        /* تغيير اللغة بالكامل */
+        /* تغيير اللغة */
         function toggleLanguage() {
             currentLang = currentLang === "ar" ? "en" : "ar";
             
