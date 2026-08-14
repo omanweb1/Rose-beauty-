@@ -17,7 +17,7 @@
         }
 
         body {
-            background-color: #FAF9F5; /* درجة الأبيض العاجي المطلوبة */
+            background-color: #FAF9F5;
             color: #333;
             min-height: 100vh;
             display: flex;
@@ -26,7 +26,7 @@
 
         /* الهيدر الوردي العلوي */
         .top-header {
-            background-color: #FF77A9; /* درجة الوردي القوية */
+            background-color: #FF77A9;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -40,34 +40,27 @@
 
         .header-right {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
         }
 
-        /* حركة نزول الشعار Animate Logo */
-        .logo-container img.animated-logo {
-            height: 48px;
-            width: auto;
-            display: block;
-            animation: dropDown 0.9s ease-out forwards;
-        }
-
-        @keyframes dropDown {
-            0% {
-                transform: translateY(-70px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        /* اسم المتجر النصي بديل اللوجو */
+        .brand-title {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1.1;
         }
 
         .slogan {
             color: #ffffff;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 500;
             white-space: nowrap;
+            opacity: 0.9;
         }
 
         .header-left {
@@ -168,7 +161,7 @@
         .product-price {
             font-weight: bold;
             color: #FF77A9;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         /* صفحة المنتج المستقلة */
@@ -214,7 +207,7 @@
         }
 
         .detail-price {
-            font-size: 20px;
+            font-size: 22px;
             color: #FF77A9;
             font-weight: bold;
             margin: 10px 0;
@@ -364,6 +357,9 @@
         body.ltr {
             direction: ltr;
         }
+        body.ltr .header-right {
+            align-items: flex-start;
+        }
         body.ltr .product-info, 
         body.ltr .detail-info,
         body.ltr .cart-total-display {
@@ -384,9 +380,7 @@
     <!-- الهيدر الوردي العلوي -->
     <header class="top-header">
         <div class="header-right">
-            <div class="logo-container">
-                <img src="logo.png" alt="شعار روز بيوتي" class="animated-logo">
-            </div>
+            <span class="brand-title">Rose Beauty</span>
             <span class="slogan" id="slogan-text">جمالك بالطبيعة</span>
         </div>
         <div class="header-left">
@@ -410,7 +404,7 @@
                 <div class="product-info">
                     <h2 class="product-title" data-ar="غسول الوجه" data-en="Face Wash">غسول الوجه</h2>
                     <p class="product-short-desc" data-ar="غسول مرطب للوجه بخلاصه ماء الأرز و ماء الورد" data-en="Moisturizing face wash with rice water and rose water extract">غسول مرطب للوجه بخلاصه ماء الأرز و ماء الورد</p>
-                    <p class="product-price">3 OMR / 3 ر.ع</p>
+                    <p class="product-price" id="price-cleanser">3 ر.ع</p>
                 </div>
             </div>
 
@@ -420,7 +414,7 @@
                 <div class="product-info">
                     <h2 class="product-title" data-ar="الكريم المرطب" data-en="Moisturizing Cream">الكريم المرطب</h2>
                     <p class="product-short-desc" data-ar="كريم مرطب للوجه بخلاصه ماء الأرز و ماء الورد" data-en="Moisturizing face cream with rice water and rose water extract">كريم مرطب للوجه بخلاصه ماء الأرز و ماء الورد</p>
-                    <p class="product-price">3.9 OMR / 3.9 ر.ع</p>
+                    <p class="product-price" id="price-cream">3.9 ر.ع</p>
                 </div>
             </div>
         </section>
@@ -464,13 +458,13 @@
             <div class="shipping-selection">
                 <label id="shipping-lbl">طريقة التوصيل:</label>
                 <select id="shipping-method" onchange="updateCartTotal()">
-                    <option value="1">استلام عن طريق المكتب 1ROM (1 ر.ع)</option>
-                    <option value="2">استلام في المنزل 2ROM (2 ر.ع)</option>
+                    <option value="1" id="ship-opt1">استلام عن طريق المكتب (1 ر.ع)</option>
+                    <option value="2" id="ship-opt2">استلام في المنزل (2 ر.ع)</option>
                 </select>
             </div>
 
             <div class="cart-total-display">
-                <span id="total-lbl">الإجمالي:</span> <span id="cart-total-price">0</span> OMR
+                <span id="total-lbl">الإجمالي:</span> <span id="cart-total-price">0</span> <span id="currency-lbl">ر.ع</span>
             </div>
 
             <button class="send-whatsapp-btn" onclick="sendInvoiceWhatsApp()" id="checkout-btn">
@@ -511,7 +505,6 @@
           measurementId: "G-582ZSK4CRC"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
     </script>
@@ -524,7 +517,8 @@
                 nameAr: 'غسول الوجه',
                 nameEn: 'Face Wash',
                 price: 3,
-                priceText: '3 OMR / 3 ر.ع',
+                priceAr: '3 ر.ع',
+                priceEn: '3 OMR',
                 img: 'water.jpeg'
             },
             cream: {
@@ -532,7 +526,8 @@
                 nameAr: 'الكريم المرطب',
                 nameEn: 'Moisturizing Cream',
                 price: 3.9,
-                priceText: '3.9 OMR / 3.9 ر.ع',
+                priceAr: '3.9 ر.ع',
+                priceEn: '3.9 OMR',
                 img: 'cream.jpeg'
             }
         };
@@ -547,10 +542,20 @@
             document.documentElement.lang = currentLanguage;
             document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
 
+            // تحديث زر اللغة والنصوص العامة
             document.getElementById('lang-label').innerText = currentLanguage === 'ar' ? 'EN' : 'AR';
             document.getElementById('slogan-text').innerText = currentLanguage === 'ar' ? 'جمالك بالطبيعة' : 'Your beauty in nature';
             document.getElementById('rights-text').innerText = currentLanguage === 'ar' ? 'الحقوق محفوظة لي' : 'All rights reserved to';
-            
+            document.getElementById('currency-lbl').innerText = currentLanguage === 'ar' ? 'ر.ع' : 'OMR';
+
+            // تحديث أسعار المنتجات في الصفحة الرئيسية حسب اللغة
+            document.getElementById('price-cleanser').innerText = currentLanguage === 'ar' ? products.cleanser.priceAr : products.cleanser.priceEn;
+            document.getElementById('price-cream').innerText = currentLanguage === 'ar' ? products.cream.priceAr : products.cream.priceEn;
+
+            // خيارات التوصيل في السلة
+            document.getElementById('ship-opt1').innerText = currentLanguage === 'ar' ? 'استلام عن طريق المكتب (1 ر.ع)' : 'Office Pickup (1 OMR)';
+            document.getElementById('ship-opt2').innerText = currentLanguage === 'ar' ? 'استلام في المنزل (2 ر.ع)' : 'Home Delivery (2 OMR)';
+
             const backIcon = document.getElementById('back-arrow-icon');
             if (currentLanguage === 'en') {
                 backIcon.className = 'fa-solid fa-arrow-left';
@@ -574,7 +579,7 @@
 
             document.getElementById('detail-img').src = prod.img;
             document.getElementById('detail-title').innerText = currentLanguage === 'ar' ? prod.nameAr : prod.nameEn;
-            document.getElementById('detail-price').innerText = prod.priceText;
+            document.getElementById('detail-price').innerText = currentLanguage === 'ar' ? prod.priceAr : prod.priceEn;
 
             document.getElementById('main-page').classList.remove('active');
             document.getElementById('product-detail-page').classList.add('active');
@@ -618,10 +623,11 @@
             } else {
                 cart.forEach((item) => {
                     const name = currentLanguage === 'ar' ? item.nameAr : item.nameEn;
+                    const priceText = currentLanguage === 'ar' ? item.priceAr : item.priceEn;
                     listContainer.innerHTML += `
                         <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:6px; font-size:14px;">
                             <span>${name}</span>
-                            <span>${item.price} OMR</span>
+                            <span>${priceText}</span>
                         </div>
                     `;
                 });
@@ -643,8 +649,8 @@
             }
 
             const shippingValue = document.getElementById('shipping-method').value;
-            let shippingTextAr = shippingValue === "1" ? "استلام عن طريق المكتب 1ROM" : "استلام في المنزل 2ROM";
-            let shippingTextEn = shippingValue === "1" ? "Office Pickup 1ROM" : "Home Delivery 2ROM";
+            let shippingTextAr = shippingValue === "1" ? "استلام عن طريق المكتب (1 ر.ع)" : "استلام في المنزل (2 ر.ع)";
+            let shippingTextEn = shippingValue === "1" ? "Office Pickup (1 OMR)" : "Home Delivery (2 OMR)";
 
             let message = "";
             message += "طلب جديد من روز بيوتي\n";
@@ -652,11 +658,13 @@
             
             message += "تفاصيل المنتجات المطلوبة:\n";
             cart.forEach(item => {
-                message += `${item.nameAr} - ${item.price}ر.ع (${item.price}ROM)\n`;
+                const name = currentLanguage === 'ar' ? item.nameAr : item.nameEn;
+                const price = currentLanguage === 'ar' ? item.priceAr : item.priceEn;
+                message += `- ${name} : ${price}\n`;
             });
 
             message += `\nطريقة التوصيل:\n🚗 ${shippingTextAr} / ${shippingTextEn}\n`;
-            message += `\nالإجمالي النهائي: ${document.getElementById('cart-total-price').innerText} OMR / ر.ع`;
+            message += `\nالإجمالي النهائي: ${document.getElementById('cart-total-price').innerText} ${currentLanguage === 'ar' ? 'ر.ع' : 'OMR'}`;
 
             const phoneNumber = "96879277221";
             const encodedMessage = encodeURIComponent(message);
