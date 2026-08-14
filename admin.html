@@ -16,7 +16,7 @@
         #login-screen h2 { color: #FF77A9; margin-bottom: 20px; }
         #login-screen input {
             width: 100%; padding: 12px; margin-bottom: 15px;
-            border: 1px solid #ccc; border-radius: 6px; outline: none; font-size: 15px;
+            border: 1px solid #ccc; border-radius: 6px; outline: none; font-size: 15px; text-align: center;
         }
         #login-screen button {
             width: 100%; padding: 12px; background: #FF77A9;
@@ -36,56 +36,50 @@
         }
         .section-card h2 { color: #FF77A9; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #fff4f8; padding-bottom: 8px; }
 
-        .product-status-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;
-        }
+        .add-box { display: flex; gap: 10px; margin-bottom: 10px; }
+        .add-box input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        .add-box button { background: #FF77A9; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+
+        .product-status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
         .product-item {
             border: 1px solid #eee; padding: 15px; border-radius: 8px;
             display: flex; justify-content: space-between; align-items: center; background: #fff4f8;
         }
-        .status-toggle-btn {
-            padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px;
-        }
+        .status-toggle-btn { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; }
         .status-in-stock { background: #2ec4b6; color: white; }
         .status-out-of-stock { background: #e74c3c; color: white; }
-
-        .add-box {
-            display: flex; gap: 10px; margin-bottom: 20px;
-        }
-        .add-box input {
-            flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;
-        }
-        .add-box button {
-            background: #2ec4b6; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold;
-        }
     </style>
 </head>
 <body>
 
+    <!-- 1. شاشة الدخول -->
     <div id="login-screen">
-        <h2>لوحة التحكم <i class="fa-solid fa-lock"></i></h2>
+        <h2>إدارة المتجر <i class="fa-solid fa-lock"></i></h2>
         <input type="password" id="admin-pass" placeholder="أدخلي كلمة المرور">
         <button onclick="checkPassword()">تسجيل الدخول</button>
     </div>
 
+    <!-- 2. لوحة التحكم -->
     <div id="admin-panel">
         <header>
             <h1>إدارة مخزون Rose Beauty</h1>
             <button class="logout-btn" onclick="logout()">خروج</button>
         </header>
 
+        <!-- صندوق إضافة منتج -->
         <div class="section-card">
-            <h2><i class="fa-solid fa-plus"></i> إضافة منتج جديد بسرعة</h2>
+            <h2><i class="fa-solid fa-plus-circle"></i> إضافة منتج جديد للم مخزون</h2>
             <div class="add-box">
-                <input type="text" id="new-prod-name" placeholder="اسم المنتج (مثال: سيروم روز)">
-                <button onclick="addNewProduct()">إضافة للمخزون</button>
+                <input type="text" id="new-prod-name" placeholder="اكتبي اسم المنتج هنا (مثال: سيروم روز)">
+                <button onclick="addNewProduct()">إضافة</button>
             </div>
         </div>
 
+        <!-- عرض المنتجات -->
         <div class="section-card">
-            <h2><i class="fa-solid fa-boxes-stacked"></i> حالة المنتجات الحالية</h2>
+            <h2><i class="fa-solid fa-boxes-stacked"></i> المنتجات الحالية في المتجر</h2>
             <div class="product-status-grid" id="products-container">
-                <p>جاري الاتصال بقاعدة البيانات...</p>
+                <p>جاري تحميل المنتجات...</p>
             </div>
         </div>
     </div>
@@ -109,25 +103,25 @@
 
         // إضافة منتج جديد
         window.addNewProduct = async function() {
-            const nameInput = document.getElementById('new-prod-name');
-            const name = nameInput.value.trim();
-            if(!name) { alert("يرجى كتابة اسم المنتج أولاً"); return; }
+            const input = document.getElementById('new-prod-name');
+            const name = input.value.trim();
+            if(!name) { alert("من فضلك أدخلي اسم المنتج أولاً"); return; }
 
             await addDoc(collection(db, "Product"), {
                 name: name,
                 instock: true
             });
-            nameInput.value = "";
+            input.value = "";
         };
 
+        // تحكم في عرض المنتجات
         window.loadAdminData = function() {
             const container = document.getElementById('products-container');
             
-            // قراءة المنتجات مباشرة من مجموعة Product
             onSnapshot(collection(db, "Product"), (snapshot) => {
                 container.innerHTML = "";
                 if(snapshot.empty) {
-                    container.innerHTML = "<p style='color:#777;'>لا توجد منتجات مسجلة، يمكنكِ إضافة منتج جديد من الأعلى 👆</p>";
+                    container.innerHTML = "<p style='color:#666;'>لا توجد منتجات مسجلة، استعملي المربع بالأعلى لإضافة أول منتج ✨</p>";
                     return;
                 }
 
@@ -155,9 +149,6 @@
 
                     container.appendChild(itemDiv);
                 });
-            }, (error) => {
-                console.error("Error:", error);
-                container.innerHTML = "<p style='color:red;'>حدث خطأ بالاتصال، جربي تحديث الصفحة.</p>";
             });
         }
     </script>
@@ -165,7 +156,11 @@
     <script>
         function checkPassword() {
             const pass = document.getElementById('admin-pass').value;
-            if(pass === "123456") {
+            
+            // 🔑 يمكنكِ تغيير كلمة المرور هنا بدلاً من 123456
+            const myPassword = "123456"; 
+
+            if(pass === myPassword) {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('admin-panel').style.display = 'block';
                 if(window.loadAdminData) window.loadAdminData();
