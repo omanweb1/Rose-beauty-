@@ -3,23 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rose Beauty</title>
-    <!-- استيراد أيقونات FontAwesome -->
+    <title>روز بيوتي | Rose Beauty</title>
+    <!-- أيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- الهوية البصرية لبراند Rose Beauty --- */
-        :root {
-            --baby-pink: #f472b6;       /* وردي ناعم Baby Pink */
-            --baby-pink-dark: #db2777;  /* درجة وردي أغمق للبروز */
-            --white: #ffffff;
-            --soft-bg: #fff1f2;         /* خلفية مريحة */
-            --card-bg: #ffffff;
-            --dark-text: #374151;
-            --border-radius: 16px;
-            --transition: all 0.3s ease;
-        }
-
+        /* التنسيقات العامة */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -28,928 +17,630 @@
         }
 
         body {
-            background-color: var(--soft-bg);
-            color: var(--dark-text);
+            background-color: #EDE8D0; /* درجة اللون البيج المطلوبة تماماً */
+            color: #333;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
         }
 
-        /* --- الهيدر العلوي الوردي --- */
-        .hero-header {
-            background-color: var(--baby-pink);
-            color: var(--white);
-            padding: 15px 5%;
-            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.2);
-            width: 100%;
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* الهيدر الوردي العلوي */
+        .top-header {
+            background-color: #e8a0bf; /* وردي بناتي ناعم */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            padding: 12px 20px;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        /* أنيميشن نزول الهيدر الشعار والاسم */
-        .brand-section {
+        .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
-            animation: slideDown 0.8s ease-out;
+            gap: 12px;
         }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* حركة نزول الشعار Animate Logo */
+        .logo-container img.animated-logo {
+            height: 48px;
+            width: auto;
+            display: block;
+            animation: dropDown 0.9s ease-out forwards;
         }
 
-        /* صورة اللوجو */
-        .brand-logo-img {
-            width: 55px;
-            height: 55px;
-            object-fit: contain;
-            border-radius: 50%;
-            background-color: var(--white);
-            padding: 3px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .brand-titles {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand-titles h1 {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--white);
-            line-height: 1.1;
+        @keyframes dropDown {
+            0% {
+                transform: translateY(-70px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .slogan {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--white);
-            opacity: 0.95;
-            margin-top: 3px;
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-header {
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 1.5px solid var(--white);
-            color: var(--white);
-            padding: 8px 16px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
+            color: #ffffff; /* سلوجن باللون الأبيض بخط أصغر */
             font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 6px;
-            transition: var(--transition);
+            gap: 18px;
         }
 
-        .btn-header:hover {
-            background-color: var(--white);
-            color: var(--baby-pink-dark);
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .cart-badge {
-            background-color: #22c55e;
-            color: var(--white);
-            border-radius: 50%;
-            padding: 2px 7px;
+        .cart-icon-wrapper {
+            position: relative;
+            color: #ffffff; /* أيقونة السلة باللون الأبيض */
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: #2ec4b6; /* عدد العناصر باللون الأخضر */
+            color: #ffffff;
             font-size: 11px;
             font-weight: bold;
+            border-radius: 50%;
+            padding: 2px 6px;
         }
 
-        /* --- محتوى الموقع الرئيسي --- */
-        .main-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 30px 20px;
+        /* إدارة الأقسام والصفحات */
+        .page-content {
+            display: none;
             flex: 1;
-            width: 100%;
+            padding: 20px;
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--baby-pink-dark);
+        .page-content.active {
+            display: block;
         }
 
-        /* شبكة المنتجات */
-        .products-grid {
+        /* الصفحة الرئيسية والمنتجات */
+        .products-section {
+            max-width: 950px;
+            margin: 20px auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
 
         .product-card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
+            background: #ffffff;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(244, 114, 182, 0.08);
-            border: 1px solid #fce7f3;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(244, 114, 182, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
         }
 
         .product-img {
             width: 100%;
-            height: 230px;
+            height: 260px;
             object-fit: cover;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .product-img:hover {
-            opacity: 0.95;
         }
 
         .product-info {
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
+            padding: 16px;
+            text-align: right;
         }
 
         .product-title {
             font-size: 18px;
-            color: #1f2937;
-            margin-bottom: 6px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
+            color: #333;
+            margin-bottom: 8px;
         }
 
-        .product-title:hover {
-            color: var(--baby-pink-dark);
-        }
-
-        .product-subtitle {
+        .product-short-desc {
             font-size: 13px;
-            color: #6b7280;
+            color: #666;
             margin-bottom: 12px;
+            line-height: 1.5;
         }
 
         .product-price {
-            font-size: 17px;
-            font-weight: 800;
-            color: var(--baby-pink-dark);
-            margin-bottom: 15px;
+            font-weight: bold;
+            color: #e8a0bf;
+            font-size: 16px;
         }
 
-        .card-actions {
+        /* صفحة المنتج المستقلة */
+        .detail-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(232, 160, 191, 0.9);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 10;
             display: flex;
-            gap: 8px;
-            margin-top: auto;
-        }
-
-        .btn-view-details {
-            background-color: #fce7f3;
-            color: var(--baby-pink-dark);
-            border: none;
-            padding: 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            flex: 1;
-            font-size: 13px;
-            transition: var(--transition);
-        }
-
-        .btn-view-details:hover {
-            background-color: #fbcfe8;
-        }
-
-        .btn-add-cart {
-            background-color: var(--baby-pink);
-            color: var(--white);
-            border: none;
-            padding: 10px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-            transition: var(--transition);
-        }
-
-        .btn-add-cart:hover {
-            background-color: var(--baby-pink-dark);
-        }
-
-        /* --- صفحة تفاصيل المنتج --- */
-        .product-detail-view {
-            display: none;
-            background-color: var(--white);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid #fce7f3;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .back-btn-container {
-            margin-bottom: 20px;
-        }
-
-        .btn-back {
-            background-color: #fce7f3;
-            color: var(--baby-pink-dark);
-            border: none;
-            padding: 8px 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-
-        .btn-back:hover {
-            background-color: var(--baby-pink);
-            color: var(--white);
-        }
-
-        .detail-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            align-items: start;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
 
         .detail-img {
             width: 100%;
-            max-height: 400px;
+            max-height: 420px;
             object-fit: cover;
-            border-radius: var(--border-radius);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            display: block;
         }
 
-        .detail-info h2 {
-            font-size: 24px;
-            color: #1f2937;
-            margin-bottom: 12px;
+        .detail-info {
+            padding: 22px;
+            text-align: right;
         }
 
         .detail-price {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--baby-pink-dark);
-            margin-bottom: 20px;
+            font-size: 20px;
+            color: #e8a0bf;
+            font-weight: bold;
+            margin: 10px 0;
         }
 
-        .detail-description {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #4b5563;
-            margin-bottom: 20px;
-        }
-
-        .detail-benefits-box {
-            background-color: #fff1f2;
-            border-right: 4px solid var(--baby-pink);
-            padding: 15px;
+        .treatment-box {
+            background-color: #fef6f8;
+            border-right: 4px solid #e8a0bf;
+            padding: 16px;
             border-radius: 8px;
-            margin-bottom: 25px;
-        }
-
-        html[dir="ltr"] .detail-benefits-box {
-            border-right: none;
-            border-left: 4px solid var(--baby-pink);
-        }
-
-        .detail-benefits-box h4 {
-            color: var(--baby-pink-dark);
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .detail-benefits-box div {
+            margin: 18px 0;
+            line-height: 1.7;
             font-size: 14px;
-            line-height: 1.6;
-            color: #374151;
         }
 
-        .btn-detail-add-cart {
-            background-color: var(--baby-pink);
-            color: var(--white);
+        .treatment-box h3 {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        .alcohol-free {
+            font-weight: bold;
+            color: #c9517c;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            background-color: #e8a0bf;
+            color: white;
             border: none;
-            padding: 14px 28px;
-            border-radius: 25px;
-            cursor: pointer;
+            padding: 13px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: var(--transition);
-            width: 100%;
+            cursor: pointer;
+            transition: background 0.2s ease;
         }
 
-        .btn-detail-add-cart:hover {
-            background-color: var(--baby-pink-dark);
+        .add-to-cart-btn:hover {
+            background-color: #d880a5;
         }
 
-        /* --- الفوتر --- */
-        .footer-section {
-            background-color: var(--baby-pink);
-            color: var(--white);
-            padding: 20px 5%;
-            width: 100%;
-            margin-top: auto;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            font-size: 14px;
-        }
-
-        .footer-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--white);
-        }
-
-        .footer-item a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .footer-item a:hover {
-            text-decoration: underline;
-        }
-
-        /* --- سلة المشتريات الجانبية --- */
-        .cart-sidebar {
+        /* نافذة السلة Cart Modal */
+        .cart-modal {
+            display: none;
             position: fixed;
-            top: 0;
-            width: 340px;
-            height: 100%;
-            background-color: var(--white);
-            box-shadow: 0 0 25px rgba(0,0,0,0.15);
-            z-index: 2000;
-            transition: transform 0.3s ease-in-out;
+            top: 0; right: 0; left: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .close-cart {
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .shipping-selection {
+            margin: 15px 0;
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            gap: 6px;
+            font-size: 14px;
         }
 
-        /* ضبط اتجاه السلة تلقائياً بحسب اللغة */
-        html[dir="rtl"] .cart-sidebar {
-            right: 0;
-            transform: translateX(100%);
+        .shipping-selection select {
+            padding: 9px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
         }
 
-        html[dir="ltr"] .cart-sidebar {
-            left: 0;
-            transform: translateX(-100%);
-        }
-
-        .cart-sidebar.open {
-            transform: translateX(0) !important;
-        }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #fce7f3;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-        }
-
-        .cart-header h3 {
-            color: var(--baby-pink-dark);
-        }
-
-        .btn-close-cart {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: #6b7280;
-            transition: var(--transition);
-        }
-
-        .btn-close-cart:hover {
-            color: var(--baby-pink-dark);
-        }
-
-        .cart-items {
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #fdf2f8;
-        }
-
-        .item-qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 5px;
-        }
-
-        .btn-qty {
-            background-color: #fce7f3;
-            color: var(--baby-pink-dark);
-            border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .cart-total-display {
+            font-size: 16px;
             font-weight: bold;
-            transition: var(--transition);
+            margin-top: 10px;
+            text-align: right;
         }
 
-        .btn-qty:hover {
-            background-color: var(--baby-pink);
-            color: var(--white);
-        }
-
-        .cart-footer {
-            border-top: 2px solid #fce7f3;
-            padding-top: 15px;
+        .send-whatsapp-btn {
+            width: 100%;
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
             margin-top: 15px;
         }
 
-        .cart-total-row {
+        /* الفوتر الوردي السفلي */
+        .bottom-footer {
+            background-color: #e8a0bf;
+            color: white;
+            padding: 16px 20px;
+            margin-top: auto;
+            font-size: 14px;
+        }
+
+        .footer-row {
             display: flex;
             justify-content: space-between;
-            font-size: 17px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #1f2937;
-        }
-
-        .btn-whatsapp-checkout {
-            background-color: #25d366;
-            color: var(--white);
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 25px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: var(--transition);
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .btn-whatsapp-checkout:hover {
-            background-color: #128c7e;
+        .bottom-footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        /* استجابة للهواتف الذكية */
-        @media (max-width: 600px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            .cart-sidebar {
-                width: 100%;
-            }
+        .bottom-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-rights {
+            width: 100%;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding-top: 10px;
+        }
+
+        /* تعديل الاتجاه للغة الإنجليزية LTR */
+        body.ltr {
+            direction: ltr;
+        }
+        body.ltr .product-info, 
+        body.ltr .detail-info,
+        body.ltr .cart-total-display {
+            text-align: left;
+        }
+        body.ltr .treatment-box {
+            border-right: none;
+            border-left: 4px solid #e8a0bf;
+        }
+        body.ltr .back-btn {
+            right: auto;
+            left: 15px;
         }
     </style>
 </head>
 <body>
 
-    <!-- الهيدر الوردي الثابت لجميع الصفحات -->
-    <header class="hero-header">
-        <div class="header-container">
-            <div class="brand-section">
-                <!-- صورة اللوجو -->
-                <img src="6df88296-fe94-4e4f-b216-585dfd3dd41c.jpeg" alt="Rose Beauty Logo" class="brand-logo-img" onerror="this.style.display='none'">
-                <div class="brand-titles">
-                    <h1 id="logo-text">Rose Beauty</h1>
-                    <div class="slogan" id="slogan-text">Natural Bright | إشراقة طبيعية</div>
-                </div>
+    <!-- الهيدر الوردي العلوي -->
+    <header class="top-header">
+        <div class="header-right">
+            <div class="logo-container">
+                <!-- استبدلي logo.png باسم ملف الشعار الخاص بكِ -->
+                <img src="logo.png" alt="شعار روز بيوتي" class="animated-logo">
             </div>
-            
-            <div class="nav-controls">
-                <button class="btn-header" onclick="toggleLanguage()">
-                    <i class="fa-solid fa-globe"></i>
-                    <span id="lang-btn-text">English</span>
-                </button>
-                <button class="btn-header" onclick="toggleCart()">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <span id="cart-btn-text">السلة</span>
-                    <span class="cart-badge" id="cart-count">0</span>
-                </button>
+            <span class="slogan" id="slogan-text">تذوقه ، انت تحبه</span>
+        </div>
+        <div class="header-left">
+            <button class="lang-btn" onclick="toggleLanguage()" aria-label="تغيير اللغة">
+                <i class="fa-solid fa-globe"></i>
+                <span id="lang-label">EN</span>
+            </button>
+            <div class="cart-icon-wrapper" onclick="toggleCartModal()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count" id="cart-count">0</span>
             </div>
         </div>
     </header>
 
-    <main class="main-container">
-        
-        <!-- 1. القائمة الرئيسية للمنتجات -->
-        <div id="main-products-view">
-            <h2 class="section-title" id="menu-title">منتجات العناية بالبشرة</h2>
-            <div class="products-grid" id="products-grid">
-                <!-- الأصناف تولّد تلقائياً -->
-            </div>
-        </div>
-
-        <!-- 2. صفحة تفاصيل المنتج المستقلة -->
-        <div id="product-detail-view" class="product-detail-view">
-            <div class="back-btn-container">
-                <button class="btn-back" onclick="showMainPage()">
-                    <i class="fa-solid fa-arrow-right" id="back-icon"></i>
-                    <span id="back-btn-text">الرجوع للرئيسية</span>
-                </button>
-            </div>
-
-            <div class="detail-content">
-                <img id="detail-product-img" src="" alt="" class="detail-img">
-                <div class="detail-info">
-                    <h2 id="detail-product-title"></h2>
-                    <div id="detail-product-price" class="detail-price"></div>
-                    <p id="detail-product-desc" class="detail-description"></p>
-                    
-                    <div class="detail-benefits-box">
-                        <h4 id="benefits-title">💡 المكونات والفوائد الأساسية:</h4>
-                        <div id="detail-product-benefits"></div>
-                    </div>
-
-                    <button id="detail-add-cart-btn" class="btn-detail-add-cart">
-                        <i class="fa-solid fa-cart-plus"></i>
-                        <span id="detail-cart-btn-text">إضافة إلى سلة المشتريات</span>
-                    </button>
+    <!-- الصفحة الرئيسية / قائمة المنتجات -->
+    <main id="main-page" class="page-content active">
+        <section class="products-section">
+            <!-- غسول الوجه -->
+            <div class="product-card" onclick="openProductPage('cleanser')">
+                <img src="cleanser.jpg" alt="غسول الوجه" class="product-img">
+                <div class="product-info">
+                    <h2 class="product-title" data-ar="غسول الوجه" data-en="Face Wash">غسول الوجه</h2>
+                    <p class="product-short-desc" data-ar="غسول مرطب للوجه بخلاصه ماء الأرز و ماء الورد" data-en="Moisturizing face wash with rice water and rose water extract">غسول مرطب للوجه بخلاصه ماء الأرز و ماء الورد</p>
+                    <p class="product-price">3 OMR / 3 ر.ع</p>
                 </div>
             </div>
-        </div>
 
+            <!-- الكريم المرطب -->
+            <div class="product-card" onclick="openProductPage('cream')">
+                <img src="cream.jpg" alt="الكريم المرطب" class="product-img">
+                <div class="product-info">
+                    <h2 class="product-title" data-ar="الكريم المرطب" data-en="Moisturizing Cream">الكريم المرطب</h2>
+                    <p class="product-short-desc" data-ar="كريم مرطب للوجه بخلاصه ماء الأرز و ماء الورد" data-en="Moisturizing face cream with rice water and rose water extract">كريم مرطب للوجه بخلاصه ماء الأرز و ماء الورد</p>
+                    <p class="product-price">3.9 OMR / 3.9 ر.ع</p>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- الفوتر الوردي الموحد -->
-    <footer class="footer-section">
-        <div class="footer-container">
-            <div class="footer-item">
-                <i class="fa-brands fa-instagram"></i>
-                <a href="https://instagram.com/omanweb1" target="_blank" dir="ltr">@omanweb1</a>
-            </div>
-            <div class="footer-item">
-                <i class="fa-solid fa-heart"></i>
-                <span id="footer-text">Rose Beauty - جمالكِ بالطبيعة</span>
-            </div>
-            <div class="footer-item">
-                <i class="fa-solid fa-phone"></i>
-                <a href="tel:+96879277221" dir="ltr">+968 79277221</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- سلة المشتريات الجانبية -->
-    <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h3 id="cart-title">سلة المشتريات</h3>
-            <button class="btn-close-cart" onclick="toggleCart()">
-                <i class="fa-solid fa-xmark"></i>
+    <!-- صفحة تفاصيل المنتج المستقلة -->
+    <main id="product-detail-page" class="page-content">
+        <div class="detail-container">
+            <!-- سهم الرجوع للصفحة الرئيسية -->
+            <button class="back-btn" onclick="showMainPage()" aria-label="رجوع">
+                <i class="fa-solid fa-arrow-right" id="back-arrow-icon"></i>
             </button>
-        </div>
-        
-        <div class="cart-items" id="cart-items-list"></div>
 
-        <div class="cart-footer">
-            <div class="cart-total-row">
-                <span id="total-label">المجموع:</span>
-                <span id="cart-total-value">0.000 ر.ع</span>
+            <!-- صورة المنتج بحجم يملأ عرض الصفحة -->
+            <img id="detail-img" src="" alt="صورة المنتج" class="detail-img">
+
+            <div class="detail-info">
+                <h1 id="detail-title"></h1>
+                <p id="detail-price" class="detail-price"></p>
+                
+                <div class="treatment-box">
+                    <h3 id="treatment-heading">كيف يعالج بشرتك ؟ :</h3>
+                    <p id="treatment-text">
+                        ماء الأرز مضاد قوي للأكسده و للشيخوخه يخفف الإلتهابات مهدء و مرمم لجميع أنواع البشرة . ماء الورد يحظى بعده مزايا طبيعيه أبرزها الترطيب العميق لجميع أنواع البشرة ،يشد و ينعم مظهر الجلد <br>
+                        <span class="alcohol-free">(خالي من اي مركبات كحولية)</span>
+                    </p>
+                </div>
+
+                <button class="add-to-cart-btn" onclick="addToCartCurrentProduct()" id="add-to-cart-lbl">إضافة إلى السلة</button>
             </div>
-            <button class="btn-whatsapp-checkout" onclick="sendToWhatsApp()">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span id="checkout-btn-text">إرسال الطلب عبر الواتساب</span>
+        </div>
+    </main>
+
+    <!-- نافذة السلة والشراء -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-cart" onclick="toggleCartModal()">&times;</span>
+            <h2 id="cart-modal-title">سلة المشتريات</h2>
+            <div id="cart-items-list"></div>
+            
+            <div class="shipping-selection">
+                <label id="shipping-lbl">طريقة التوصيل:</label>
+                <select id="shipping-method" onchange="updateCartTotal()">
+                    <option value="1">استلام عن طريق المكتب 1ROM (1 ر.ع)</option>
+                    <option value="2">استلام في المنزل 2ROM (2 ر.ع)</option>
+                </select>
+            </div>
+
+            <div class="cart-total-display">
+                <span id="total-lbl">الإجمالي:</span> <span id="cart-total-price">0</span> OMR
+            </div>
+
+            <button class="send-whatsapp-btn" onclick="sendInvoiceWhatsApp()" id="checkout-btn">
+                إرسال الطلب عبر الواتساب <i class="fa-brands fa-whatsapp"></i>
             </button>
         </div>
     </div>
 
-    <script>
-        const products = [
-            {
-                id: 1,
-                nameAr: "غسول ماء الأرز وماء الورد",
-                nameEn: "Rice & Rose Water Cleanser",
-                subAr: "غسول بخلاصة ماء الأرز وماء الورد",
-                subEn: "Cleanser with Rice & Rose Water extract",
-                descAr: "غسول كريمي لطيف جداً على البشرة، مخصص للبشرة المختلطة والدهنية. يحتوي على نسبة عالية من الـ Hyaluronic Acid لتنظيف مسام البشرة بعمق وتوفير ترطيب مريح ومتوازن.",
-                descEn: "A gentle creamy facial cleanser designed specifically for combination and oily skin. Rich in Hyaluronic Acid for deep pore cleansing & balanced moisture.",
-                benefitsAr: "🌾 **ماء الأرز:** مضاد قوي للأكسدة، يساعد على محاربة الشيخوخة ويعزز نضارة وإشراقة البشرة الطبيعية.\n🌹 **ماء الورد:** مرطب قوي، منعم وملطف ممتاز للبشرة والجلد ينشط الحيوية.",
-                benefitsEn: "🌾 **Rice Water:** Powerful antioxidant helping fight anti-aging and promoting natural radiance.\n🌹 **Rose Water:** Deeply hydrating, softening, and soothing natural skin tonic.",
-                price: 2.500, 
-                image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600"
-            },
-            {
-                id: 2,
-                nameAr: "كريم ماء الأرز وماء الورد المرطب",
-                nameEn: "Rice & Rose Water Moisturizer",
-                subAr: "كريم بشرة بخلاصة ماء الأرز وماء الورد",
-                subEn: "Skin Cream with Rice & Rose Water extract",
-                descAr: "كريم بشرة مرطب ومغذٍ ولطيف للغاية، مخصص للبشرة المختلطة والدهنية. غني بنسبة عالية من الـ Hyaluronic Acid ليمنح البشرة حماية وترطيباً يدوم طوال اليوم.",
-                descEn: "A hydrating, gentle skin cream specially formulated for combination and oily skin. Enriched with Hyaluronic Acid to nourish skin & lock in hydration.",
-                benefitsAr: "🌾 **ماء الأرز:** مضاد قوي للأكسدة، يساعد على محاربة الشيخوخة وتجديد خلايا البشرة.\n🌹 **ماء الورد:** مرطب قوي، منعم وملطف طبيعي للبشرة يعيد إليها نعومتها الفائقة.",
-                benefitsEn: "🌾 **Rice Water:** Strong antioxidant aiding in anti-aging and skin renewal.\n🌹 **Rose Water:** Intense moisturizer, softening & soothing skin texture.",
-                price: 3.600, 
-                image: "https://images.unsplash.com/photo-1608248597379-8ac80261136b?w=600"
-            }
-        ];
+    <!-- الفوتر الوردي السفلي -->
+    <footer class="bottom-footer">
+        <div class="footer-row">
+            <div class="footer-contact">
+                <span id="contact-lbl">رقم التواصل المجاني :</span>
+                <a href="https://wa.me/96879277221" target="_blank" class="contact-link">+968 79277221</a>
+            </div>
+            <div class="footer-instagram">
+                <span id="insta-lbl">حسابنا على إنستغرام :</span>
+                <a href="https://instagram.com/omanweb1" target="_blank" class="insta-link">omanweb1</a>
+            </div>
+        </div>
+        <div class="footer-rights">
+            فقط عدل الحقوق محفوظه لي <a href="https://instagram.com/omanweb1" target="_blank" class="rights-link">omanweb1</a>
+        </div>
+    </footer>
 
-        const translations = {
-            ar: {
-                logo: "Rose Beauty",
-                slogan: "Natural Bright | إشراقة طبيعية",
-                menuTitle: "منتجات العناية بالبشرة",
-                langBtn: "English",
-                cartBtn: "السلة",
-                cartTitle: "سلة المشتريات",
-                totalLabel: "المجموع:",
-                checkoutBtn: "إرسال الطلب عبر الواتساب",
-                addToCart: "إضافة للسلة",
-                viewDetails: "عرض التفاصيل",
-                currency: "ر.ع",
-                footerText: "Rose Beauty - جمالكِ بالطبيعة",
-                backBtn: "الرجوع للرئيسية",
-                benefitsTitle: "💡 المكونات والفوائد الأساسية:"
+    <!-- البرمجة السلوكية للسطح (JavaScript) -->
+    <script>
+        const products = {
+            cleanser: {
+                id: 'cleanser',
+                nameAr: 'غسول الوجه',
+                nameEn: 'Face Wash',
+                price: 3,
+                priceText: '3 OMR / 3 ر.ع',
+                img: 'cleanser.jpg'
             },
-            en: {
-                logo: "Rose Beauty",
-                slogan: "Natural Bright",
-                menuTitle: "Skincare Collection",
-                langBtn: "العربية",
-                cartBtn: "Cart",
-                cartTitle: "Your Cart",
-                totalLabel: "Total:",
-                checkoutBtn: "Send Order via WhatsApp",
-                addToCart: "Add to Cart",
-                viewDetails: "View Details",
-                currency: "OMR",
-                footerText: "Rose Beauty - Natural Radiance",
-                backBtn: "Back to Home",
-                benefitsTitle: "💡 Key Ingredients & Benefits:"
+            cream: {
+                id: 'cream',
+                nameAr: 'الكريم المرطب',
+                nameEn: 'Moisturizing Cream',
+                price: 3.9,
+                priceText: '3.9 OMR / 3.9 ر.ع',
+                img: 'cream.jpg'
             }
         };
 
-        let currentLang = "ar";
+        let currentLanguage = 'ar';
         let cart = [];
-        let currentActiveProductId = null;
-        const whatsappNumber = "96879277221"; 
+        let currentOpenedProduct = null;
 
-        /* عرض المنتجات */
-        function renderMenu() {
-            const grid = document.getElementById("products-grid");
-            grid.innerHTML = "";
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+            document.body.classList.toggle('ltr', currentLanguage === 'en');
+            document.documentElement.lang = currentLanguage;
+            document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
 
-            products.forEach(product => {
-                const name = currentLang === "ar" ? product.nameAr : product.nameEn;
-                const sub = currentLang === "ar" ? product.subAr : product.subEn;
-                const currency = translations[currentLang].currency;
-                
-                const card = document.createElement("div");
-                card.className = "product-card";
-                card.innerHTML = `
-                    <img src="${product.image}" alt="${name}" class="product-img" onclick="openProductDetails(${product.id})">
-                    <div class="product-info">
-                        <h3 class="product-title" onclick="openProductDetails(${product.id})">${name}</h3>
-                        <div class="product-subtitle">${sub}</div>
-                        <div class="product-price">${product.price.toFixed(3)} ${currency}</div>
-                        <div class="card-actions">
-                            <button class="btn-view-details" onclick="openProductDetails(${product.id})">
-                                ${translations[currentLang].viewDetails}
-                            </button>
-                            <button class="btn-add-cart" onclick="addToCart(${product.id})">
-                                <i class="fa-solid fa-cart-plus"></i> ${translations[currentLang].addToCart}
-                            </button>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        /* فتح تفاصيل المنتج */
-        function openProductDetails(productId) {
-            currentActiveProductId = productId;
-            const product = products.find(p => p.id === productId);
-            const currency = translations[currentLang].currency;
-
-            document.getElementById("main-products-view").style.display = "none";
-            document.getElementById("product-detail-view").style.display = "block";
-
-            document.getElementById("detail-product-img").src = product.image;
-            document.getElementById("detail-product-title").innerText = currentLang === "ar" ? product.nameAr : product.nameEn;
-            document.getElementById("detail-product-price").innerText = `${product.price.toFixed(3)} ${currency}`;
-            document.getElementById("detail-product-desc").innerText = currentLang === "ar" ? product.descAr : product.descEn;
+            document.getElementById('lang-label').innerText = currentLanguage === 'ar' ? 'EN' : 'AR';
+            document.getElementById('slogan-text').innerText = currentLanguage === 'ar' ? 'تذوقه ، انت تحبه' : 'Taste it, you love it';
             
-            let rawBenefits = currentLang === "ar" ? product.benefitsAr : product.benefitsEn;
-            rawBenefits = rawBenefits.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br><br>');
-            document.getElementById("detail-product-benefits").innerHTML = rawBenefits;
-
-            document.getElementById("detail-add-cart-btn").onclick = function() {
-                addToCart(product.id);
-            };
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        /* العودة للرئيسية */
-        function showMainPage() {
-            currentActiveProductId = null;
-            document.getElementById("product-detail-view").style.display = "none";
-            document.getElementById("main-products-view").style.display = "block";
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        /* فتح/إغلاق السلة */
-        function toggleCart() {
-            const sidebar = document.getElementById("cart-sidebar");
-            sidebar.classList.toggle("open");
-        }
-
-        /* إضافة للسلة */
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const cartItem = cart.find(item => item.id === productId);
-
-            if (cartItem) {
-                cartItem.quantity++;
+            const backIcon = document.getElementById('back-arrow-icon');
+            if (currentLanguage === 'en') {
+                backIcon.className = 'fa-solid fa-arrow-left';
             } else {
-                cart.push({ ...product, quantity: 1 });
+                backIcon.className = 'fa-solid fa-arrow-right';
             }
 
-            updateCart();
-            
-            const sidebar = document.getElementById("cart-sidebar");
-            if (!sidebar.classList.contains("open")) {
-                toggleCart();
-            }
-        }
-
-        /* تعديل الكمية */
-        function updateQuantity(productId, amount) {
-            const cartItem = cart.find(item => item.id === productId);
-            if (cartItem) {
-                cartItem.quantity += amount;
-                if (cartItem.quantity <= 0) {
-                    cart = cart.filter(item => item.id !== productId);
-                }
-            }
-            updateCart();
-        }
-
-        /* تحديث السلة */
-        function updateCart() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById("cart-count").innerText = totalItems;
-
-            const list = document.getElementById("cart-items-list");
-            list.innerHTML = "";
-
-            let totalPrice = 0;
-            const currency = translations[currentLang].currency;
-
-            cart.forEach(item => {
-                const name = currentLang === "ar" ? item.nameAr : item.nameEn;
-                const itemTotal = item.price * item.quantity;
-                totalPrice += itemTotal;
-
-                const itemRow = document.createElement("div");
-                itemRow.className = "cart-item";
-                itemRow.innerHTML = `
-                    <div>
-                        <h4 style="font-weight: 600; font-size: 14px; color: #1f2937;">${name}</h4>
-                        <div style="font-size: 12px; color: #6b7280;">${item.price.toFixed(3)} x ${item.quantity}</div>
-                        <div class="item-qty-controls">
-                            <button class="btn-qty" onclick="updateQuantity(${item.id}, -1)">-</button>
-                            <span style="font-weight: bold; font-size: 13px;">${item.quantity}</span>
-                            <button class="btn-qty" onclick="updateQuantity(${item.id}, 1)">+</button>
-                        </div>
-                    </div>
-                    <div style="font-weight: bold; color: var(--baby-pink-dark); font-size: 14px;">
-                        ${itemTotal.toFixed(3)} ${currency}
-                    </div>
-                `;
-                list.appendChild(itemRow);
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                el.innerText = currentLanguage === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
             });
 
-            document.getElementById("cart-total-value").innerText = `${totalPrice.toFixed(3)} ${currency}`;
+            if(currentOpenedProduct) {
+                openProductPage(currentOpenedProduct);
+            }
+            updateCartUI();
         }
 
-        /* إرسال للواتساب */
-        function sendToWhatsApp() {
+        function openProductPage(productId) {
+            currentOpenedProduct = productId;
+            const prod = products[productId];
+
+            document.getElementById('detail-img').src = prod.img;
+            document.getElementById('detail-title').innerText = currentLanguage === 'ar' ? prod.nameAr : prod.nameEn;
+            document.getElementById('detail-price').innerText = prod.priceText;
+
+            document.getElementById('main-page').classList.remove('active');
+            document.getElementById('product-detail-page').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showMainPage() {
+            currentOpenedProduct = null;
+            document.getElementById('product-detail-page').classList.remove('active');
+            document.getElementById('main-page').classList.add('active');
+        }
+
+        function addToCartCurrentProduct() {
+            if (currentOpenedProduct) {
+                cart.push(products[currentOpenedProduct]);
+                updateCartCount();
+                alert(currentLanguage === 'ar' ? 'تمت إضافة المنتج إلى السلة' : 'Product added to cart');
+            }
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            } else {
+                modal.style.display = 'flex';
+                updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            const listContainer = document.getElementById('cart-items-list');
+            listContainer.innerHTML = '';
+
             if (cart.length === 0) {
-                alert(currentLang === "ar" ? "سلة المشتريات فارغة!" : "Cart is empty!");
+                listContainer.innerHTML = `<p style="text-align:center; padding:15px; color:#777;">${currentLanguage === 'ar' ? 'السلة فارغة' : 'Cart is empty'}</p>`;
+            } else {
+                cart.forEach((item) => {
+                    const name = currentLanguage === 'ar' ? item.nameAr : item.nameEn;
+                    listContainer.innerHTML += `
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:6px; font-size:14px;">
+                            <span>${name}</span>
+                            <span>${item.price} OMR</span>
+                        </div>
+                    `;
+                });
+            }
+            updateCartTotal();
+        }
+
+        function updateCartTotal() {
+            const shippingCost = parseFloat(document.getElementById('shipping-method').value) || 0;
+            const itemsTotal = cart.reduce((sum, item) => sum + item.price, 0);
+            const finalTotal = itemsTotal + (cart.length > 0 ? shippingCost : 0);
+            document.getElementById('cart-total-price').innerText = finalTotal.toFixed(1);
+        }
+
+        function sendInvoiceWhatsApp() {
+            if (cart.length === 0) {
+                alert(currentLanguage === 'ar' ? 'السلة فارغة!' : 'Cart is empty!');
                 return;
             }
 
-            let message = "🌸 *Rose Beauty - طلب جديد* 🌸\n\n";
-            let total = 0;
+            const shippingValue = document.getElementById('shipping-method').value;
+            let shippingTextAr = shippingValue === "1" ? "استلام عن طريق المكتب 1ROM" : "استلام في المنزل 2ROM";
+            let shippingTextEn = shippingValue === "1" ? "Office Pickup 1ROM" : "Home Delivery 2ROM";
 
-            cart.forEach((item) => {
-                const name = currentLang === "ar" ? item.nameAr : item.nameEn;
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                message += `• ${name}\nالعدد: ${item.quantity} | السعر: ${itemTotal.toFixed(3)} ر.ع\n\n`;
+            let message = "";
+            message += "طلب جديد من روز بيوتي\n";
+            message += "New order from Rose Beauty\n\n";
+            
+            message += "تفاصيل المنتجات المطلوبة:\n";
+            cart.forEach(item => {
+                message += `${item.nameAr} - ${item.price}ر.ع (${item.price}ROM)\n`;
             });
 
-            message += `*المجموع الإجمالي للمنتجات: ${total.toFixed(3)} ر.ع*\n\n`;
-            message += `🚚 *تنويه التوصيل:*\nيوجد توصيل للمنزل بقيمة ريالين وللمكتب بقيمة ريال واحد.`;
+            message += `\nطريقة التوصيل:\n🚗 ${shippingTextAr} / ${shippingTextEn}\n`;
+            message += `\nالإجمالي النهائي: ${document.getElementById('cart-total-price').innerText} OMR / ر.ع`;
 
-            const encodedText = encodeURIComponent(message);
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedText}`;
-            window.open(whatsappUrl, '_blank');
+            const phoneNumber = "96879277221";
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
         }
-
-        /* التبديل بين اللغات */
-        function toggleLanguage() {
-            currentLang = currentLang === "ar" ? "en" : "ar";
-            
-            const htmlTag = document.documentElement;
-            if (currentLang === "en") {
-                htmlTag.setAttribute("dir", "ltr");
-                htmlTag.setAttribute("lang", "en");
-                document.getElementById("back-icon").className = "fa-solid fa-arrow-left";
-            } else {
-                htmlTag.setAttribute("dir", "rtl");
-                htmlTag.setAttribute("lang", "ar");
-                document.getElementById("back-icon").className = "fa-solid fa-arrow-right";
-            }
-
-            document.getElementById("logo-text").innerText = translations[currentLang].logo;
-            document.getElementById("slogan-text").innerText = translations[currentLang].slogan;
-            document.getElementById("lang-btn-text").innerText = translations[currentLang].langBtn;
-            document.getElementById("cart-btn-text").innerText = translations[currentLang].cartBtn;
-            document.getElementById("menu-title").innerText = translations[currentLang].menuTitle;
-            document.getElementById("cart-title").innerText = translations[currentLang].cartTitle;
-            document.getElementById("total-label").innerText = translations[currentLang].totalLabel;
-            document.getElementById("checkout-btn-text").innerText = translations[currentLang].checkoutBtn;
-            document.getElementById("footer-text").innerText = translations[currentLang].footerText;
-            document.getElementById("back-btn-text").innerText = translations[currentLang].backBtn;
-            document.getElementById("benefits-title").innerText = translations[currentLang].benefitsTitle;
-            document.getElementById("detail-cart-btn-text").innerText = translations[currentLang].addToCart;
-
-            renderMenu();
-            updateCart();
-
-            if (currentActiveProductId) {
-                openProductDetails(currentActiveProductId);
-            }
-        }
-
-        window.onload = function() {
-            renderMenu();
-        };
     </script>
 </body>
 </html>
