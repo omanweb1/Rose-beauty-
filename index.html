@@ -17,7 +17,7 @@
         }
 
         body {
-            background-color: #EDE8D0; /* درجة اللون البيج المطلوبة تماماً */
+            background-color: #FAF9F5; /* درجة الأبيض العاجي المطلوبة */
             color: #333;
             min-height: 100vh;
             display: flex;
@@ -26,7 +26,7 @@
 
         /* الهيدر الوردي العلوي */
         .top-header {
-            background-color: #e8a0bf; /* وردي بناتي ناعم */
+            background-color: #FF77A9; /* درجة الوردي القوية */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -64,8 +64,8 @@
         }
 
         .slogan {
-            color: #ffffff; /* سلوجن باللون الأبيض بخط أصغر */
-            font-size: 13px;
+            color: #ffffff;
+            font-size: 14px;
             font-weight: 500;
             white-space: nowrap;
         }
@@ -85,11 +85,12 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            font-weight: bold;
         }
 
         .cart-icon-wrapper {
             position: relative;
-            color: #ffffff; /* أيقونة السلة باللون الأبيض */
+            color: #ffffff;
             font-size: 22px;
             cursor: pointer;
         }
@@ -98,7 +99,7 @@
             position: absolute;
             top: -8px;
             right: -10px;
-            background-color: #2ec4b6; /* عدد العناصر باللون الأخضر */
+            background-color: #2ec4b6;
             color: #ffffff;
             font-size: 11px;
             font-weight: bold;
@@ -166,7 +167,7 @@
 
         .product-price {
             font-weight: bold;
-            color: #e8a0bf;
+            color: #FF77A9;
             font-size: 16px;
         }
 
@@ -185,7 +186,7 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: rgba(232, 160, 191, 0.9);
+            background: rgba(255, 119, 169, 0.9);
             border: none;
             color: white;
             width: 40px;
@@ -214,14 +215,14 @@
 
         .detail-price {
             font-size: 20px;
-            color: #e8a0bf;
+            color: #FF77A9;
             font-weight: bold;
             margin: 10px 0;
         }
 
         .treatment-box {
-            background-color: #fef6f8;
-            border-right: 4px solid #e8a0bf;
+            background-color: #fff4f8;
+            border-right: 4px solid #FF77A9;
             padding: 16px;
             border-radius: 8px;
             margin: 18px 0;
@@ -237,14 +238,14 @@
 
         .alcohol-free {
             font-weight: bold;
-            color: #c9517c;
+            color: #d84378;
             display: inline-block;
             margin-top: 6px;
         }
 
         .add-to-cart-btn {
             width: 100%;
-            background-color: #e8a0bf;
+            background-color: #FF77A9;
             color: white;
             border: none;
             padding: 13px;
@@ -256,7 +257,7 @@
         }
 
         .add-to-cart-btn:hover {
-            background-color: #d880a5;
+            background-color: #e05c8f;
         }
 
         /* نافذة السلة Cart Modal */
@@ -325,7 +326,7 @@
 
         /* الفوتر الوردي السفلي */
         .bottom-footer {
-            background-color: #e8a0bf;
+            background-color: #FF77A9;
             color: white;
             padding: 16px 20px;
             margin-top: auto;
@@ -354,7 +355,7 @@
             width: 100%;
             text-align: center;
             margin-top: 12px;
-            font-size: 12px;
+            font-size: 13px;
             border-top: 1px solid rgba(255, 255, 255, 0.3);
             padding-top: 10px;
         }
@@ -370,7 +371,7 @@
         }
         body.ltr .treatment-box {
             border-right: none;
-            border-left: 4px solid #e8a0bf;
+            border-left: 4px solid #FF77A9;
         }
         body.ltr .back-btn {
             right: auto;
@@ -384,10 +385,9 @@
     <header class="top-header">
         <div class="header-right">
             <div class="logo-container">
-                <!-- استبدلي logo.png باسم ملف الشعار الخاص بكِ -->
                 <img src="logo.png" alt="شعار روز بيوتي" class="animated-logo">
             </div>
-            <span class="slogan" id="slogan-text">تذوقه ، انت تحبه</span>
+            <span class="slogan" id="slogan-text">جمالك بالطبيعة</span>
         </div>
         <div class="header-left">
             <button class="lang-btn" onclick="toggleLanguage()" aria-label="تغيير اللغة">
@@ -406,7 +406,7 @@
         <section class="products-section">
             <!-- غسول الوجه -->
             <div class="product-card" onclick="openProductPage('cleanser')">
-                <img src="cleanser.jpg" alt="غسول الوجه" class="product-img">
+                <img src="water.jpeg" alt="غسول الوجه" class="product-img">
                 <div class="product-info">
                     <h2 class="product-title" data-ar="غسول الوجه" data-en="Face Wash">غسول الوجه</h2>
                     <p class="product-short-desc" data-ar="غسول مرطب للوجه بخلاصه ماء الأرز و ماء الورد" data-en="Moisturizing face wash with rice water and rose water extract">غسول مرطب للوجه بخلاصه ماء الأرز و ماء الورد</p>
@@ -416,7 +416,7 @@
 
             <!-- الكريم المرطب -->
             <div class="product-card" onclick="openProductPage('cream')">
-                <img src="cream.jpg" alt="الكريم المرطب" class="product-img">
+                <img src="cream.jpeg" alt="الكريم المرطب" class="product-img">
                 <div class="product-info">
                     <h2 class="product-title" data-ar="الكريم المرطب" data-en="Moisturizing Cream">الكريم المرطب</h2>
                     <p class="product-short-desc" data-ar="كريم مرطب للوجه بخلاصه ماء الأرز و ماء الورد" data-en="Moisturizing face cream with rice water and rose water extract">كريم مرطب للوجه بخلاصه ماء الأرز و ماء الورد</p>
@@ -434,7 +434,7 @@
                 <i class="fa-solid fa-arrow-right" id="back-arrow-icon"></i>
             </button>
 
-            <!-- صورة المنتج بحجم يملأ عرض الصفحة -->
+            <!-- صورة المنتج -->
             <img id="detail-img" src="" alt="صورة المنتج" class="detail-img">
 
             <div class="detail-info">
@@ -492,11 +492,31 @@
             </div>
         </div>
         <div class="footer-rights">
-            فقط عدل الحقوق محفوظه لي <a href="https://instagram.com/omanweb1" target="_blank" class="rights-link">omanweb1</a>
+            <span id="rights-text">الحقوق محفوظة لي</span> <a href="https://instagram.com/omanweb1" target="_blank" class="rights-link">omanweb1</a>
         </div>
     </footer>
 
-    <!-- البرمجة السلوكية للسطح (JavaScript) -->
+    <!-- تهيئة Firebase Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDGc8nIdo7qdhfEyGOglAMaAEWVs9FVPac",
+          authDomain: "rose-beauty-a44af.firebaseapp.com",
+          projectId: "rose-beauty-a44af",
+          storageBucket: "rose-beauty-a44af.firebasestorage.app",
+          messagingSenderId: "563112245690",
+          appId: "1:563112245690:web:a4b8bf3ab3be8ccc3c0583",
+          measurementId: "G-582ZSK4CRC"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
+    <!-- البرمجة السلوكية العامة للموقع -->
     <script>
         const products = {
             cleanser: {
@@ -505,7 +525,7 @@
                 nameEn: 'Face Wash',
                 price: 3,
                 priceText: '3 OMR / 3 ر.ع',
-                img: 'cleanser.jpg'
+                img: 'water.jpeg'
             },
             cream: {
                 id: 'cream',
@@ -513,7 +533,7 @@
                 nameEn: 'Moisturizing Cream',
                 price: 3.9,
                 priceText: '3.9 OMR / 3.9 ر.ع',
-                img: 'cream.jpg'
+                img: 'cream.jpeg'
             }
         };
 
@@ -528,7 +548,8 @@
             document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
 
             document.getElementById('lang-label').innerText = currentLanguage === 'ar' ? 'EN' : 'AR';
-            document.getElementById('slogan-text').innerText = currentLanguage === 'ar' ? 'تذوقه ، انت تحبه' : 'Taste it, you love it';
+            document.getElementById('slogan-text').innerText = currentLanguage === 'ar' ? 'جمالك بالطبيعة' : 'Your beauty in nature';
+            document.getElementById('rights-text').innerText = currentLanguage === 'ar' ? 'الحقوق محفوظة لي' : 'All rights reserved to';
             
             const backIcon = document.getElementById('back-arrow-icon');
             if (currentLanguage === 'en') {
