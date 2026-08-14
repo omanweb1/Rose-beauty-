@@ -127,6 +127,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
         }
 
         .product-card:hover {
@@ -138,6 +139,7 @@
             width: 100%;
             height: 260px;
             object-fit: cover;
+            transition: opacity 0.3s ease, filter 0.3s ease;
         }
 
         .product-info {
@@ -162,6 +164,36 @@
             font-weight: bold;
             color: #FF77A9;
             font-size: 18px;
+        }
+
+        /* شارات حالة المنتجات (نفذت الكمية) */
+        .out-badge {
+            display: none;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(231, 76, 60, 0.95);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .product-card.out-of-stock {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .product-card.out-of-stock .product-img {
+            filter: grayscale(80%);
+            opacity: 0.6;
+        }
+
+        .product-card.out-of-stock .out-badge {
+            display: block;
         }
 
         /* صفحة المنتج المستقلة */
@@ -251,6 +283,12 @@
 
         .add-to-cart-btn:hover {
             background-color: #e05c8f;
+        }
+
+        .add-to-cart-btn:disabled {
+            background-color: #e74c3c !important;
+            cursor: not-allowed;
+            opacity: 0.85;
         }
 
         /* نافذة السلة Cart Modal */
@@ -373,6 +411,10 @@
             right: auto;
             left: 15px;
         }
+        body.ltr .out-badge {
+            right: auto;
+            left: 15px;
+        }
     </style>
 </head>
 <body>
@@ -399,7 +441,8 @@
     <main id="main-page" class="page-content active">
         <section class="products-section">
             <!-- غسول الوجه -->
-            <div class="product-card" onclick="openProductPage('cleanser')">
+            <div class="product-card" id="card-cleanser" onclick="openProductPage('cleanser')">
+                <span class="out-badge" id="out-cleanser">نفذت الكمية ✕</span>
                 <img src="water.jpeg" alt="غسول الوجه" class="product-img">
                 <div class="product-info">
                     <h2 class="product-title" data-ar="غسول الوجه" data-en="Face Wash">غسول الوجه</h2>
@@ -409,7 +452,8 @@
             </div>
 
             <!-- الكريم المرطب -->
-            <div class="product-card" onclick="openProductPage('cream')">
+            <div class="product-card" id="card-cream" onclick="openProductPage('cream')">
+                <span class="out-badge" id="out-cream">نفذت الكمية ✕</span>
                 <img src="cream.jpeg" alt="الكريم المرطب" class="product-img">
                 <div class="product-info">
                     <h2 class="product-title" data-ar="الكريم المرطب" data-en="Moisturizing Cream">الكريم المرطب</h2>
@@ -490,10 +534,11 @@
         </div>
     </footer>
 
-    <!-- تهيئة Firebase Integration -->
+    <!-- تهيئة وربط Firebase Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyDGc8nIdo7qdhfEyGOglAMaAEWVs9FVPac",
@@ -507,6 +552,43 @@
 
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+
+        // الاستماع المباشر للتغيرات في المخزون
+        onSnapshot(collection(db, "Product"), (snapshot) => {
+            snapshot.forEach((docSnapshot) => {
+                const data = docSnapshot.data();
+                const name = data.name;
+                const instock = data.instock;
+
+                let cardId = null;
+                let prodKey = null;
+
+                if (name === 'غسول الوجه') {
+                    cardId = 'card-cleanser';
+                    prodKey = 'cleanser';
+                } else if (name === 'الكريم المرطب') {
+                    cardId = 'card-cream';
+                    prodKey = 'cream';
+                }
+
+                if (cardId && products[prodKey]) {
+                    products[prodKey].instock = instock;
+                    const card = document.getElementById(cardId);
+                    
+                    if (instock === false) {
+                        card.classList.add('out-of-stock');
+                    } else {
+                        card.classList.remove('out-of-stock');
+                    }
+
+                    // إذا كانت صفحة التفاصيل مفتوحة للمنتج المحدث حالياً
+                    if (window.currentOpenedProduct === prodKey) {
+                        window.updateDetailAddToCartButton(instock);
+                    }
+                }
+            });
+        });
     </script>
 
     <!-- البرمجة السلوكية العامة للموقع -->
@@ -519,7 +601,8 @@
                 price: 3,
                 priceAr: '3 ر.ع',
                 priceEn: '3 OMR',
-                img: 'water.jpeg'
+                img: 'water.jpeg',
+                instock: true
             },
             cream: {
                 id: 'cream',
@@ -528,19 +611,24 @@
                 price: 3.9,
                 priceAr: '3.9 ر.ع',
                 priceEn: '3.9 OMR',
-                img: 'cream.jpeg'
+                img: 'cream.jpeg',
+                instock: true
             }
         };
 
         let currentLanguage = 'ar';
         let cart = [];
-        let currentOpenedProduct = null;
+        window.currentOpenedProduct = null;
 
         function toggleLanguage() {
             currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
             document.body.classList.toggle('ltr', currentLanguage === 'en');
             document.documentElement.lang = currentLanguage;
             document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+
+            // تحديث شارات نفاد الكمية
+            document.getElementById('out-cleanser').innerText = currentLanguage === 'ar' ? 'نفذت الكمية ✕' : 'Out of Stock ✕';
+            document.getElementById('out-cream').innerText = currentLanguage === 'ar' ? 'نفذت الكمية ✕' : 'Out of Stock ✕';
 
             // تحديث زر اللغة والنصوص العامة
             document.getElementById('lang-label').innerText = currentLanguage === 'ar' ? 'EN' : 'AR';
@@ -567,34 +655,53 @@
                 el.innerText = currentLanguage === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
             });
 
-            if(currentOpenedProduct) {
-                openProductPage(currentOpenedProduct);
+            if(window.currentOpenedProduct) {
+                openProductPage(window.currentOpenedProduct);
             }
             updateCartUI();
         }
 
         function openProductPage(productId) {
-            currentOpenedProduct = productId;
+            window.currentOpenedProduct = productId;
             const prod = products[productId];
 
             document.getElementById('detail-img').src = prod.img;
             document.getElementById('detail-title').innerText = currentLanguage === 'ar' ? prod.nameAr : prod.nameEn;
             document.getElementById('detail-price').innerText = currentLanguage === 'ar' ? prod.priceAr : prod.priceEn;
 
+            updateDetailAddToCartButton(prod.instock);
+
             document.getElementById('main-page').classList.remove('active');
             document.getElementById('product-detail-page').classList.add('active');
             window.scrollTo(0, 0);
         }
 
+        function updateDetailAddToCartButton(isAvailable) {
+            const btn = document.getElementById('add-to-cart-lbl');
+            if (!btn) return;
+
+            if (isAvailable === false) {
+                btn.disabled = true;
+                btn.innerText = currentLanguage === 'ar' ? 'نفذت الكمية ✕' : 'Out of Stock ✕';
+            } else {
+                btn.disabled = false;
+                btn.innerText = currentLanguage === 'ar' ? 'إضافة إلى السلة' : 'Add to Cart';
+            }
+        }
+        window.updateDetailAddToCartButton = updateDetailAddToCartButton;
+
         function showMainPage() {
-            currentOpenedProduct = null;
+            window.currentOpenedProduct = null;
             document.getElementById('product-detail-page').classList.remove('active');
             document.getElementById('main-page').classList.add('active');
         }
 
         function addToCartCurrentProduct() {
-            if (currentOpenedProduct) {
-                cart.push(products[currentOpenedProduct]);
+            if (window.currentOpenedProduct) {
+                const prod = products[window.currentOpenedProduct];
+                if (prod.instock === false) return;
+
+                cart.push(prod);
                 updateCartCount();
                 alert(currentLanguage === 'ar' ? 'تمت إضافة المنتج إلى السلة' : 'Product added to cart');
             }
